@@ -16,6 +16,21 @@ function doCleanup() {
 
 }
 
+function removeApos() {
+  files=`ls -1tr`
+  for filename in $files; do
+  #for filename in ./*; do
+    echo filename $filename
+    newFilename=`echo $filename | sed s/\'//g`
+    echo newFilename $newFilename
+    if [ "$filename" != "$newFilename" ]
+    then
+      echo mv $filename $newFilename
+      mv $filename $newFilename
+    fi
+  done
+}
+
 # move into working directory - Bridge
 cd /Users/production/ownCloud/Venues/Bridge/
 doCleanup
