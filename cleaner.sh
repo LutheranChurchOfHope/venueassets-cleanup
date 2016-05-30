@@ -9,7 +9,7 @@ function doCleanup() {
   # remove everything (that's left) that doesn't follow the proper dating/naming format
 #  rm -r `ls -1tr ./ | grep -v -e ^[0-9][0-9][0-9][0-9]-[0-9][0-9]-[0-9][0-9]_ | sed s/$/\'/g | sed s/^/\'/g`
   rm /tmp/myfile.txt
-  ls -1tr ./ | grep -v -e ^[0-9][0-9][0-9][0-9]-[0-9][0-9]-[0-9][0-9]_ | sed s/$/\'/g | sed s/^/\'/g >> /tmp/myfile.txt
+  ls -1tr ./ | grep -v -e ^[0-9][0-9][0-9][0-9]-[0-9][0-9]-[0-9][0-9]_ | sed s/\'/\\\\\'/g | sed s/$/\'/g | sed s/^/\'/g >> /tmp/myfile.txt
   cat /tmp/myfile.txt | sed s/^/rm\ \-r\ /g >> /tmp/myfile2.txt
   bash /tmp/myfile2.txt
   rm /tmp/myfile2.txt
