@@ -7,36 +7,11 @@ function doCleanup() {
   rm ./*
 
   # remove everything (that's left) that doesn't follow the proper dating/naming format
-#  rm -r `ls -1tr ./ | grep -v -e ^[0-9][0-9][0-9][0-9]-[0-9][0-9]-[0-9][0-9]_ | sed s/$/\'/g | sed s/^/\'/g`
-  rm /tmp/myfile.txt
-  ls -1tr ./ | grep -v -e ^[0-9][0-9][0-9][0-9]-[0-9][0-9]-[0-9][0-9]_ >> /tmp/myfile.txt
-  #sed s/\'/\\\\\'/g
-  cat /tmp/myfile.txt | sed s/$/\'/g | sed s/^/\'/g >> /tmp/myfile1.txt
-  cat /tmp/myfile1.txt | sed s/^/rm\ \-r\ /g >> /tmp/myfile2.txt
-  bash /tmp/myfile2.txt
-  rm /tmp/myfile1.txt
-  rm /tmp/myfile2.txt
+  #  rm -r `ls -1tr ./ | grep -v -e ^[0-9][0-9][0-9][0-9]-[0-9][0-9]-[0-9][0-9]_ | sed s/$/\'/g | sed s/^/\'/g`
+  find ./ ! -regex '^\.\/\|^\.\/[0-9][0-9][0-9][0-9]-[0-9][0-9]-[0-9][0-9]_.*' -exec rm -r {} \+
 
 }
 
-function removeAposTwo() {
-  for i in *; do mv "$i" "$(echo "$i" | tr -d "'")"; done
-}
-
-function removeApos() {
-  files=`ls -1tr`
-  for filename in $files; do
-  #for filename in ./*; do
-    echo filename $filename
-    newFilename=`echo $filename | sed s/\'//g`
-    echo newFilename $newFilename
-    if [ "$filename" != "$newFilename" ]
-    then
-      echo mv $filename $newFilename
-      mv $filename $newFilename
-    fi
-  done
-}
 
 # move into working directory - Bridge
 cd /Users/production/ownCloud/Venues/Bridge/
